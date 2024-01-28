@@ -1,0 +1,11 @@
+name: SlowGardening
+version: '${project.version}'
+main: org.s1queence.plugin.SlowGardening
+api-version: '1.18'
+depend: [S1queenceLib]
+commands:
+  slowGardening:
+    usage: /sg reload
+    aliases:
+      - sg
+    zzpermission: sg.perms.reload

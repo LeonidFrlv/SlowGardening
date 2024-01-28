@@ -1,0 +1,72 @@
+# предметы которыми можно вспахивать землю (Materials)
+hoe_like_items:
+  - STONE_HOE
+  - IRON_HOE
+  - DIAMOND_HOE
+  - GOLDEN_HOE
+  - WOODEN_HOE
+  - NETHERITE_HOE
+  - DIAMOND_PICKAXE
+  - GOLDEN_PICKAXE
+  - IRON_PICKAXE
+  - STONE_PICKAXE
+  - WOODEN_PICKAXE
+  - NETHERITE_PICKAXE
+
+# предметы, держа которые в основной руке можно ускорить скорость сбора урожая с конкретного растения
+harvesting_tools:
+  - STONE_HOE
+  - IRON_HOE
+  - DIAMOND_HOE
+  - GOLDEN_HOE
+  - WOODEN_HOE
+  - NETHERITE_HOE
+  - DIAMOND_PICKAXE
+  - GOLDEN_PICKAXE
+  - IRON_PICKAXE
+  - STONE_PICKAXE
+  - WOODEN_PICKAXE
+  - NETHERITE_PICKAXE
+  - STONE_SHOVEL
+  - DIAMOND_SHOVEL
+  - GOLDEN_SHOVEL
+  - IRON_SHOVEL
+  - WOODEN_SHOVEL
+  - NETHERITE_SHOVEL
+  - SHEARS
+
+# блоки, которые считаются растениями (Material)
+plants:
+  - POTATOES
+  - BEETROOTS
+  - CARROTS
+  - WHEAT
+  - SUGAR_CANE
+  - PUMPKIN_STEM
+  - ATTACHED_PUMPKIN_STEM
+  - MELON_STEM
+  - ATTACHED_MELON_STEM
+  - SWEET_BERRY_BUSH
+
+# отключённые структуры, которые могут вырасти (деревья, гигантские грибы) (all, чтобы отключить все) (null, чтобы включить все). Все типы: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/TreeType.html
+disabled_growing_structures:
+  - ACACIA
+  - AZALEA
+  - BIG_TREE
+  - BIRCH
+  - CHORUS_PLANT
+  - BROWN_MUSHROOM
+  - COCOA_TREE
+  - CRIMSON_FUNGUS
+  - DARK_OAK
+  - JUNGLE
+  - JUNGLE_BUSH
+  - MEGA_REDWOOD
+  - RED_MUSHROOM
+  - REDWOOD
+  - SMALL_JUNGLE
+  - SWAMP
+  - TALL_BIRCH
+  - TALL_REDWOOD
+  - TREE
+  - WARPED_FUNGUS

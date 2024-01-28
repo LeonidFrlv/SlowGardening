@@ -1,0 +1,35 @@
+# пермишен игрока, который может спокойной выращивать деревья даже если они отключены
+tree_grower_permission: "sg.perms.tree_grower"
+
+# количество "ударов" мотыгой (из hoe_like_items в lists.yml), чтобы земля стала вспаханной
+hits_to_make_farmland: 8
+
+# базовое время посадки растения (из plants в lists.yml) в секундах
+base_plant_time: 5
+
+# базовое время на сбор урожая с растения (из plants в lists.yml) в секундах
+base_harvest_time: 8
+
+# пермишен игрока, который сажает/собирает растения быстрее остальных
+farmer_permission: "sg.perms.farmer"
+
+# время для посадки растения игрока с пермишеном farmer_permission (из plants в lists.yml) в секундах
+farmer_plant_time: 3
+
+# время для сбора урожая с пермишеном farmer_permission (из plants в lists.yml) в секундах
+farmer_harvest_time: 8
+
+# Уменьшает количество затрачиваемого времени на сбор урожая в то количество раз, которое указано ниже (только целые числа)
+tool_harvest_time_reducer: 2
+
+# Вкл/выкл изменение "влажности" блока грядки. Если true - всегда влажный.
+farmland_moisture_is_always_max: true
+
+progress_bar:
+  max_bars: 15
+  symbol: '|||'
+  border_left: '&8{'
+  border_right: '&8}'
+  color: f
+  complete_color: '7'
+  percent_color: 'e'

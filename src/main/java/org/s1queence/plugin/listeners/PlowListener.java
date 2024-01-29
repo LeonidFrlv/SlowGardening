@@ -12,8 +12,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.s1queence.plugin.SlowGardening;
 import org.s1queence.plugin.libs.YamlDocument;
 
@@ -24,6 +22,7 @@ import static org.s1queence.S1queenceLib.getLib;
 import static org.s1queence.api.S1Booleans.isAllowableInteraction;
 import static org.s1queence.api.S1TextUtils.getConvertedTextFromConfig;
 import static org.s1queence.api.S1Utils.sendActionBarMsg;
+import static org.s1queence.api.S1Utils.setItemDamage;
 import static org.s1queence.plugin.classes.GardenProcess.gardenHandlers;
 
 public class PlowListener implements Listener {
@@ -96,19 +95,6 @@ public class PlowListener implements Listener {
 
         block.setType(Material.FARMLAND);
         setMoistureLevel(block, plugin);
-
-        ItemMeta im = mainItem.getItemMeta();
-        if (im instanceof Damageable) {
-            Damageable dIM = (Damageable) im;
-            int damage = dIM.getDamage() + 1;
-            if (mainItem.getType().getMaxDurability() - damage <= 0) {
-                player.getInventory().remove(mainItem);
-                world.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 5.0f, 1.0f);
-                world.spawnParticle(Particle.ITEM_CRACK, player.getLocation(), 10, 0.3, 0.5, 0.3, 0, mainItem);
-                return;
-            }
-            dIM.setDamage(damage);
-            mainItem.setItemMeta(dIM);
-        }
+        setItemDamage(mainItem, player, 1);
     }
 }

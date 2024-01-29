@@ -12,7 +12,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.MoistureChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.world.StructureGrowEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.s1queence.plugin.SlowGardening;
 import org.s1queence.plugin.libs.YamlDocument;
 
@@ -75,20 +74,16 @@ public class CancelingDefaultsListener implements Listener {
     @EventHandler (priority = EventPriority.HIGHEST)
     private void onPlayerInteractEvent(PlayerInteractEvent e) {
         if (e.getHand() == null) return;
-        if (!e.getHand().equals(EquipmentSlot.HAND)) return;
         if (!e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) return;
         Block block = e.getClickedBlock();
         if (block == null) return;
+        if (!plugin.isDirtBlock(block)) return;
         Player player = e.getPlayer();
         GameMode gm = player.getGameMode();
 
-        String mainItemType = player.getInventory().getItemInMainHand().getType().toString();
-        String offItemType = player.getInventory().getItemInOffHand().getType().toString();
-        List<String> hoesLikeTools = plugin.getHoesLikeTools();
-        boolean isMainItemTool = hoesLikeTools.contains(mainItemType);
-        boolean isOffItemTool = hoesLikeTools.contains(offItemType);
-        if (!plugin.isDirtBlock(block)) return;
-        if (!isOffItemTool && !isMainItemTool) return;
+        boolean isMainItemHoe = player.getInventory().getItemInMainHand().getType().toString().contains("HOE");
+        boolean isOffItemHoe = player.getInventory().getItemInOffHand().getType().toString().contains("HOE");
+        if (!isMainItemHoe && !isOffItemHoe) return;
 
         if (!gm.equals(GameMode.SURVIVAL)) {
             if (gm.equals(GameMode.CREATIVE)) {
@@ -100,6 +95,7 @@ public class CancelingDefaultsListener implements Listener {
         }
 
         String errorText = isAllowableInteraction(player, block.getLocation(), getLib());
+
         if (errorText != null) {
             sendActionBarMsg(player, errorText);
             e.setCancelled(true);

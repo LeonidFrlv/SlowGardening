@@ -4,8 +4,6 @@ import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -14,6 +12,8 @@ import org.s1queence.api.countdown.progressbar.ProgressBar;
 import org.s1queence.plugin.SlowGardening;
 
 import java.util.HashMap;
+
+import static org.s1queence.api.S1Utils.setItemDamage;
 
 public class GardenProcess extends CountDownAction {
     public final static HashMap<Block, Player> gardenHandlers = new HashMap<>();
@@ -50,7 +50,6 @@ public class GardenProcess extends CountDownAction {
         gardenHandlers.put(block, player);
         ItemStack launchItem = getLaunchItem();
 
-        World world = block.getWorld();
         Location blockLocation = block.getLocation();
 
         actionCountDown();
@@ -68,19 +67,7 @@ public class GardenProcess extends CountDownAction {
                 if (!getPreprocessActionHandlers().containsKey(player)) {
                     if (gat.equals(GardenActionType.HARVESTING)) {
                         block.breakNaturally();
-                        ItemMeta im = launchItem.getItemMeta();
-                        if (im != null) { // сука тут тоже добавь что оно инстанс об дамагебл блять) да и вообще уже высри нахуй в s1queence lib ебучую эту срань с нанесением урону предмету, а то что это за пизда?
-                            Damageable dIM = (Damageable) im;
-                            int damage = dIM.getDamage() + 1;
-                            if (launchItem.getType().getMaxDurability() - damage <= 0) {
-                                player.getInventory().remove(launchItem);
-                                world.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 5.0f, 1.0f);
-                                world.spawnParticle(Particle.ITEM_CRACK, player.getLocation(), 10, 0.3, 0.5, 0.3, 0, launchItem);
-                            } else {
-                                dIM.setDamage(damage);
-                                launchItem.setItemMeta(dIM);
-                            }
-                        }
+                        setItemDamage(launchItem, player, 1);
                     }
 
                     if (gat.equals(GardenActionType.PLANTING)) {

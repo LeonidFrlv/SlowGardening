@@ -12,10 +12,8 @@ import org.s1queence.plugin.classes.GardenActionType;
 import org.s1queence.plugin.classes.GardenProcess;
 import org.s1queence.plugin.libs.YamlDocument;
 
-import static org.s1queence.S1queenceLib.getLib;
-import static org.s1queence.api.S1Booleans.isAllowableInteraction;
+import static org.s1queence.api.S1Booleans.isNotAllowableInteraction;
 import static org.s1queence.api.S1TextUtils.getConvertedTextFromConfig;
-import static org.s1queence.api.S1Utils.sendActionBarMsg;
 import static org.s1queence.plugin.classes.GardenProcess.gardenHandlers;
 
 public class PlantListener implements Listener {
@@ -41,9 +39,7 @@ public class PlantListener implements Listener {
             return;
         }
 
-        String errorText = isAllowableInteraction(player, block.getLocation(), getLib());
-        if (errorText != null) {
-            sendActionBarMsg(player, errorText);
+        if (isNotAllowableInteraction(player, block.getLocation())) {
             e.setCancelled(true);
             return;
         }

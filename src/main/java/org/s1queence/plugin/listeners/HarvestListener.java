@@ -15,10 +15,8 @@ import org.s1queence.plugin.libs.YamlDocument;
 
 import java.util.List;
 
-import static org.s1queence.S1queenceLib.getLib;
-import static org.s1queence.api.S1Booleans.isAllowableInteraction;
+import static org.s1queence.api.S1Booleans.isNotAllowableInteraction;
 import static org.s1queence.api.S1TextUtils.getConvertedTextFromConfig;
-import static org.s1queence.api.S1Utils.sendActionBarMsg;
 import static org.s1queence.plugin.classes.GardenProcess.gardenHandlers;
 
 public class HarvestListener implements Listener {
@@ -40,9 +38,7 @@ public class HarvestListener implements Listener {
         List<String> plants = plugin.getPlants();
         if (!plants.contains(block.getType().toString())) return;
 
-        String errorText = isAllowableInteraction(player, block.getLocation(), getLib());
-        if (errorText != null) {
-            sendActionBarMsg(player, errorText);
+        if (isNotAllowableInteraction(player, block.getLocation())) {
             e.setCancelled(true);
             return;
         }

@@ -68,9 +68,9 @@ public class GardenProcess extends CountDownAction {
 
                 if (!getPreprocessActionHandlers().containsKey(player)) {
                     if (gat.equals(GardenActionType.HARVESTING)) {
-
                         boolean isSweetBerries = blockType.equals(Material.SWEET_BERRY_BUSH);
                         if (isSweetBerries || blockType.equals(Material.CAVE_VINES_PLANT)) {
+
                             if (isSweetBerries) {
                                 Ageable ageable = (Ageable) block.getBlockData();
                                 ageable.setAge(ageable.getMaximumAge() - 2);

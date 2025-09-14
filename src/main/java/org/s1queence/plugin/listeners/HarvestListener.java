@@ -1,7 +1,9 @@
 package org.s1queence.plugin.listeners;
 
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -60,6 +62,11 @@ public class HarvestListener implements Listener {
         YamlDocument textConfig = plugin.getTextConfig();
         String pName = plugin.getName();
         e.setCancelled(true);
+
+        if (block.getType().equals(Material.SWEET_BERRY_BUSH)) {
+            Ageable ageable = (Ageable) block.getBlockData();
+            if (ageable.getAge() <= 1) return;
+        }
 
         new GardenProcess(
                 player,

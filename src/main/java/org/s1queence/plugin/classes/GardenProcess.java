@@ -71,19 +71,33 @@ public class GardenProcess extends CountDownAction {
                         boolean isSweetBerries = blockType.equals(Material.SWEET_BERRY_BUSH);
                         if (isSweetBerries || blockType.equals(Material.CAVE_VINES_PLANT)) {
 
+                            ItemStack harvest = null;
+
                             if (isSweetBerries) {
                                 Ageable ageable = (Ageable) block.getBlockData();
-                                ageable.setAge(ageable.getMaximumAge() - 2);
-                                block.setBlockData(ageable);
+
+                                if (ageable.getAge() > 1) {
+                                    harvest = new ItemStack(Material.SWEET_BERRIES, 3);
+                                    ageable.setAge(ageable.getMaximumAge() - 2);
+                                    block.setBlockData(ageable);
+                                } else {
+                                    block.breakNaturally();
+                                }
+
                             } else {
                                 CaveVinesPlant caveVinesPlant = (CaveVinesPlant) block.getBlockData();
                                 caveVinesPlant.setBerries(false);
                                 block.setBlockData(caveVinesPlant);
+                                harvest = new ItemStack(Material.GLOW_BERRIES, 3);
                             }
 
                             World world = block.getWorld();
-                            world.dropItemNaturally(blockLocation, new ItemStack(isSweetBerries ? Material.SWEET_BERRIES : Material.GLOW_BERRIES , 3));
-                            world.playSound(blockLocation, isSweetBerries ? Sound.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES : Sound.BLOCK_CAVE_VINES_PICK_BERRIES, 1.0f,1.0f);
+
+                            if (harvest != null) {
+                                world.dropItemNaturally(blockLocation, harvest);
+                                world.playSound(blockLocation, isSweetBerries ? Sound.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES : Sound.BLOCK_CAVE_VINES_PICK_BERRIES, 1.0f,1.0f);
+                            }
+
                         } else {
                             block.breakNaturally();
                         }
